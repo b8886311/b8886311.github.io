@@ -1,0 +1,51 @@
+/* Footer 組件樣式 */
+
+.footer {
+  /* 黑色漸變背景 */
+  background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+  color: #fff;
+  padding: 4rem 2rem;
+  /* 頂部大圓角 */
+  border-radius: 100px 100px 0 0;
+}
+
+/* Footer 內容容器 */
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* 頂部裝飾線 */
+.footer-line {
+  width: 150px;
+  height: 3px;
+  /* 漸變橫線 */
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+  margin: 0 auto 2rem; /* 居中並添加下邊距 */
+  border-radius: 50px;
+}
+
+/* Footer 文字 */
+.footer p {
+  font-size: 0.85rem;
+  letter-spacing: 0.25em; /* 寬鬆的字母間距 */
+  font-weight: 600;
+  opacity: 0.7; /* 半透明 */
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .footer {
+    padding: 3rem 1.5rem;
+    border-radius: 50px 50px 0 0;
+  }
+  
+  .footer-line {
+    width: 100px;
+  }
+  
+  .footer p {
+    font-size: 0.75rem;
+  }
+}

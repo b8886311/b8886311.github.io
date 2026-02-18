@@ -1,42 +1,209 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* App.css - 全局樣式和背景效果 */
+/* 這個檔案包含應用的基礎樣式和整體佈局 */
+
+/* 匯入背景圖片 */
+/* 這些圖片會被用作裝飾性背景 */
+
+/* 全局重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* 讓寬度計算包含 padding 和 border */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* 主容器 */
+.portfolio {
+  width: 100%;
+  background: #e8e8e8; /* 灰色基礎背景 */
+  color: #000;
+  overflow-x: hidden; /* 隱藏橫向捲動 */
+  position: relative;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* 固定的几何背景層 */
+.geometric-background {
+  position: fixed; /* 固定定位，不隨頁面捲動 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* 讓滑鼠事件穿透，不影響頁面互動 */
+  z-index: 0; /* 在所有內容的最底層 */
+  overflow: hidden;
+  /* 使用第一張背景圖片 */
+  background-image: url('./assets/wavy-bg-1.jpg');
+  background-size: cover; /* 覆蓋整個區域 */
+  background-position: center;
+  background-attachment: fixed; /* 背景圖片固定 */
+  opacity: 0.5; /* 提高不透明度，讓背景圖片更明顯 */
+}
+
+/* 添加渐變疊層增強藝術效果 */
+.geometric-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* 輕微的渐變，保留背景圖片的可見度 */
+  background: linear-gradient(
+    180deg,
+    rgba(232, 232, 232, 0.1) 0%,
+    transparent 30%,
+    transparent 70%,
+    rgba(232, 232, 232, 0.2) 100%
+  );
+}
+
+/* 微妙的網格疊層 */
+.grid-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* 創建細微的網格圖案 */
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 49px,
+      rgba(0, 0, 0, 0.02) 49px,
+      rgba(0, 0, 0, 0.02) 50px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 49px,
+      rgba(0, 0, 0, 0.02) 49px,
+      rgba(0, 0, 0, 0.02) 50px
+    );
+  opacity: 0.5;
+}
+
+/* 浮動的裝飾形狀 */
+.floating-shape {
+  position: absolute;
+  /* 使用第二張背景圖片創建裝飾元素 */
+  background-image: url('./assets/wavy-bg-2.webp');
+  background-size: cover;
+  background-position: center;
+  filter: blur(40px); /* 模糊效果 */
+  opacity: 0.3;
+  animation: flowFloat 25s infinite ease-in-out; /* 緩慢浮動動畫 */
+  border-radius: 50%; /* 圓形 */
+  mix-blend-mode: multiply; /* 混合模式，增加藝術感 */
+}
+
+/* 第一個浮動形狀 */
+.shape-1 {
+  width: 400px;
+  height: 400px;
+  top: -5%;
+  right: -5%;
+  animation-delay: 0s; /* 無延遲 */
+}
+
+/* 第二個浮動形狀 */
+.shape-2 {
+  width: 350px;
+  height: 350px;
+  bottom: -5%;
+  left: -5%;
+  animation-delay: 8s; /* 8秒延遲 */
+}
+
+/* 第三個浮動形狀 */
+.shape-3 {
+  width: 300px;
+  height: 300px;
+  top: 40%;
+  left: 45%;
+  animation-delay: 16s; /* 16秒延遲 */
+}
+
+/* 對角線裝飾 */
+.diagonal-line {
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  /* 漸變線條 */
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.05), transparent);
+  filter: blur(1px);
+}
+
+/* 第一條對角線 */
+.line-1 {
+  top: 25%;
+  transform: rotate(-8deg); /* 輕微旋轉 */
+  animation: flowLine 20s infinite linear; /* 流動動畫 */
+}
+
+/* 第二條對角線 */
+.line-2 {
+  bottom: 35%;
+  transform: rotate(8deg);
+  animation: flowLine 25s infinite linear reverse; /* 反向流動 */
+}
+
+/* 浮動動畫定義 */
+@keyframes flowFloat {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
   }
-  to {
-    transform: rotate(360deg);
+  25% {
+    transform: translate(30px, -40px) rotate(90deg) scale(1.1);
+  }
+  50% {
+    transform: translate(-20px, 30px) rotate(180deg) scale(0.95);
+  }
+  75% {
+    transform: translate(20px, 20px) rotate(270deg) scale(1.05);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+/* 線條流動動畫 */
+@keyframes flowLine {
+  0% {
+    transform: translateX(-10%) rotate(-8deg);
+  }
+  100% {
+    transform: translateX(10%) rotate(-8deg);
   }
 }
 
-.card {
-  padding: 2em;
+/* 響應式設計 - 平板裝置 */
+@media (max-width: 1024px) {
+  /* 在較小螢幕上減小浮動形狀的大小 */
+  .shape-1 {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .shape-2 {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .shape-3 {
+    width: 200px;
+    height: 200px;
+  }
 }
 
-.read-the-docs {
-  color: #888;
+/* 響應式設計 - 手機裝置 */
+@media (max-width: 768px) {
+  /* 降低背景複雜度以提升性能 */
+  .floating-shape {
+    opacity: 0.2;
+    filter: blur(30px);
+  }
+  
+  .geometric-background {
+    opacity: 0.1; /* 進一步降低背景不透明度 */
+  }
+  
+  /* 隱藏對角線（減少視覺干擾） */
+  .diagonal-line {
+    display: none;
+  }
 }
