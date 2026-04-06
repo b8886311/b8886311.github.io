@@ -1,6 +1,6 @@
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/image-gallery.css";
-import { useEffect, useId, useState } from "react";
+import { useState } from "react";
 
 type PortfolioCardProp = {
   item: {
@@ -16,46 +16,38 @@ type PortfolioCardProp = {
   buttonLabel?: string;
 };
 
-const CARD_OPEN_EVENT = "portfolio-card-open";
-
 function PortfolioCard({
   item,
   itemLabel = "Project",
   buttonLabel = "View Gallery",
 }: PortfolioCardProp) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const cardKey = useId();
-
-  useEffect(() => {
-    function handleCardOpen(event: Event) {
-      const openedCardKey = (event as CustomEvent<string>).detail;
-
-      if (openedCardKey !== cardKey) {
-        setIsOpen(false);
-      }
-    }
-
-    window.addEventListener(CARD_OPEN_EVENT, handleCardOpen);
-
-    return () => {
-      window.removeEventListener(CARD_OPEN_EVENT, handleCardOpen);
-    };
-  }, [cardKey]);
 
   function toggleMore() {
-    setIsOpen((prev) => {
-      const nextOpenState = !prev;
+    setIsOpen((prev) => !prev);
+  }
 
-      if (nextOpenState) {
-        window.dispatchEvent(
-          new CustomEvent<string>(CARD_OPEN_EVENT, {
-            detail: cardKey,
-          }),
-        );
-      }
-
-      return nextOpenState;
-    });
+  function renderGalleryItem(image: {
+    original: string;
+    thumbnail?: string;
+    description?: string;
+  }) {
+    return (
+      <figure className="space-y-3">
+        <div className="overflow-hidden rounded-lg bg-slate-950">
+          <img
+            src={image.original}
+            alt={image.description || item.caption}
+            className="h-full w-full object-contain"
+          />
+        </div>
+        {image.description ? (
+          <figcaption className="rounded-lg border border-emerald-400/15 bg-slate-900/70 px-4 py-3 text-sm leading-relaxed text-slate-200">
+            {image.description}
+          </figcaption>
+        ) : null}
+      </figure>
+    );
   }
 
   return (
@@ -87,7 +79,13 @@ function PortfolioCard({
 
       {isOpen && (
         <div className="animate-in fade-in relative z-10 mt-8 rounded-xl border-2 border-emerald-400/20 bg-slate-950/60 p-4 backdrop-blur duration-300 sm:p-6">
-          <ImageGallery items={item.images} showPlayButton={false} />
+          <ImageGallery
+            items={item.images}
+            showPlayButton={false}
+            showBullets={item.images.length > 1}
+            showThumbnails={item.images.length > 1}
+            renderItem={renderGalleryItem}
+          />
         </div>
       )}
     </article>
