@@ -40,6 +40,7 @@ function PortfolioCard({
 
     // 右滑 (diff < 0)：顯示前一張
     if (diff < -threshold) {
+      e.preventDefault();
       setSelectedIndex((prev) =>
         prev === 0 ? item.images.length - 1 : prev - 1,
       );
@@ -47,6 +48,7 @@ function PortfolioCard({
 
     // 左滑 (diff > 0)：顯示下一張
     if (diff > threshold) {
+      e.preventDefault();
       setSelectedIndex((prev) =>
         prev === item.images.length - 1 ? 0 : prev + 1,
       );
@@ -101,7 +103,7 @@ function PortfolioCard({
           {selectedImage ? (
             <figure className="space-y-3">
               <div
-                className="group relative overflow-hidden rounded-xl border border-emerald-400/15 bg-slate-950"
+                className="group relative overflow-hidden rounded-xl border border-emerald-400/15 bg-slate-950 touch-none"
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
               >
