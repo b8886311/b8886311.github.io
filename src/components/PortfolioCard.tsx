@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 type PortfolioCardProp = {
   item: {
@@ -21,9 +21,38 @@ function PortfolioCard({
 }: PortfolioCardProp) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
 
   function toggleMore() {
     setIsOpen((prev) => !prev);
+  }
+
+  function handleTouchStart(e: React.TouchEvent) {
+    touchStartX.current = e.touches[0].clientX;
+  }
+
+  function handleTouchEnd(e: React.TouchEvent) {
+    if (!touchStartX.current) return;
+
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX;
+    const threshold = 50;
+
+    // 右滑 (diff < 0)：顯示前一張
+    if (diff < -threshold) {
+      setSelectedIndex((prev) =>
+        prev === 0 ? item.images.length - 1 : prev - 1,
+      );
+    }
+
+    // 左滑 (diff > 0)：顯示下一張
+    if (diff > threshold) {
+      setSelectedIndex((prev) =>
+        prev === item.images.length - 1 ? 0 : prev + 1,
+      );
+    }
+
+    touchStartX.current = null;
   }
 
   const selectedImage = item.images[selectedIndex] ?? item.images[0];
@@ -66,27 +95,53 @@ function PortfolioCard({
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
                 Gallery Preview
               </p>
-              <p className="text-sm text-slate-300">
-                點選縮圖切換圖片，描述會放在圖片下方。
-              </p>
             </div>
-            <button
-              type="button"
-              className="shrink-0 rounded-lg border border-emerald-400/40 bg-slate-900/80 px-3 py-2 text-xs font-semibold text-emerald-200 transition-colors hover:border-emerald-300 hover:text-white"
-              onClick={toggleMore}
-            >
-              Hide Gallery
-            </button>
           </div>
 
           {selectedImage ? (
             <figure className="space-y-3">
-              <div className="overflow-hidden rounded-xl border border-emerald-400/15 bg-slate-950">
+              <div
+                className="group relative overflow-hidden rounded-xl border border-emerald-400/15 bg-slate-950"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
                 <img
                   src={selectedImage.original}
                   alt={selectedImage.description || item.caption}
                   className="mx-auto max-h-[52vh] w-full object-contain sm:max-h-[60vh]"
                 />
+                {item.images.length > 1 ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setSelectedIndex((prev) =>
+                          prev === 0 ? item.images.length - 1 : prev - 1,
+                        )
+                      }
+                      className="pointer-events-none absolute inset-0 left-0 top-1/2 z-10 -translate-y-1/2 cursor-pointer bg-gradient-to-r from-black/40 to-transparent opacity-0 transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 md:flex md:items-center md:justify-start md:pl-4"
+                      aria-label="上一張"
+                    >
+                      <span className="hidden text-3xl text-white md:inline">
+                        ‹
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setSelectedIndex((prev) =>
+                          prev === item.images.length - 1 ? 0 : prev + 1,
+                        )
+                      }
+                      className="pointer-events-none absolute inset-0 right-0 top-1/2 z-10 -translate-y-1/2 cursor-pointer bg-gradient-to-l from-black/40 to-transparent opacity-0 transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 md:flex md:items-center md:justify-end md:pr-4"
+                      aria-label="下一張"
+                    >
+                      <span className="hidden text-3xl text-white md:inline">
+                        ›
+                      </span>
+                    </button>
+                  </>
+                ) : null}
               </div>
               {selectedImage.description ? (
                 <figcaption className="rounded-xl border border-emerald-400/15 bg-slate-900/70 px-4 py-3 text-sm leading-relaxed text-slate-200">
