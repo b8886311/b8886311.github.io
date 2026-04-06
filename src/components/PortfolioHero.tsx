@@ -56,7 +56,7 @@ function PortfolioHero() {
                 <img
                   src={avatar}
                   alt="avatar"
-                  className="h-40 w-40 rounded-full object-cover ring-2 ring-emerald-500/30 sm:h-48 sm:w-48"
+                  className="h-40 w-40 rounded-full object-cover object-[center_5%] ring-2 ring-emerald-500/30 sm:h-48 sm:w-48"
                 />
               </div>
             </div>
