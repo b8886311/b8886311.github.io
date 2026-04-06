@@ -10,6 +10,9 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
+  build: {
+    outDir: "docs",
+  },
   server: {
     port: 3000,
   },
