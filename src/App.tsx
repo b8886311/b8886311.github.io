@@ -6,6 +6,7 @@ import PortfolioGallery from "./components/PortfolioGallery";
 import FrontendGallery from "./components/FrontendGallery";
 import CertificateGallery from "./components/CertificateGallery";
 import SkillTreeGallery from "./components/SkillTreeGallery";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <FrontendGallery />
         <CertificateGallery />
       </main>
+      <Footer />
     </div>
   );
 }
