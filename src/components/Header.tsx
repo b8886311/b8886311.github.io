@@ -1,4 +1,5 @@
 import { useState } from "react";
+import forest from "../assets/forest.svg";
 
 const navLinkClass =
   "rounded-full border-2 border-emerald-400/50 bg-emerald-500/10 px-5 py-2 text-sm font-bold uppercase tracking-wider text-emerald-300 shadow-lg shadow-emerald-900/30 transition-all duration-300 hover:border-emerald-300 hover:bg-emerald-500/20 hover:text-emerald-200 hover:shadow-emerald-500/50 hover:-translate-y-0.5 backdrop-blur-sm";
@@ -22,9 +23,11 @@ function Header() {
           className="group flex items-center gap-3"
           onClick={closeMenu}
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-emerald-300/25 bg-slate-800 text-lg font-semibold text-emerald-300 shadow-sm shadow-emerald-500/20 transition-transform duration-200 group-hover:scale-105">
-            森
-          </div>
+          <img
+            src={forest}
+            alt="Forest logo"
+            className="h-8 w-8 rounded-md object-contain"
+          />
           <p className="text-base font-semibold tracking-wide text-slate-200 sm:text-lg">
             森&apos;s Portfolio
           </p>
@@ -32,13 +35,21 @@ function Header() {
 
         <nav className="hidden items-center gap-3 md:flex">
           <a href="#about" className={navLinkClass}>
-            關於我
+            About
+          </a>
+          <a href="#skilltree" className={navLinkClass}>
+            Skill Tree
           </a>
           <a href="#gallery" className={navLinkClass}>
-            作品
+            Gallery
+          </a>
+          <a href="#frontends" className={navLinkClass}>
+            Frontends
+          </a>
+          <a href="#certificates" className={navLinkClass}>
+            Certificates
           </a>
         </nav>
-
         <div className="md:hidden">
           <button
             className="inline-flex items-center justify-center rounded-lg border border-slate-700 bg-slate-900/80 p-2 text-slate-300 transition-colors hover:border-slate-500 hover:text-emerald-300"
@@ -83,11 +94,32 @@ function Header() {
                     About
                   </a>
                   <a
+                    href="#skilltree"
+                    className="rounded-lg border border-slate-700 bg-slate-800/70 px-3 py-2 text-slate-200 transition-colors hover:bg-slate-700"
+                    onClick={closeMenu}
+                  >
+                    Skill Tree
+                  </a>
+                  <a
                     href="#gallery"
                     className="rounded-lg border border-slate-700 bg-slate-800/70 px-3 py-2 text-slate-200 transition-colors hover:bg-slate-700"
                     onClick={closeMenu}
                   >
                     Gallery
+                  </a>
+                  <a
+                    href="#frontends"
+                    className="rounded-lg border border-slate-700 bg-slate-800/70 px-3 py-2 text-slate-200 transition-colors hover:bg-slate-700"
+                    onClick={closeMenu}
+                  >
+                    Frontends
+                  </a>
+                  <a
+                    href="#certificates"
+                    className="rounded-lg border border-slate-700 bg-slate-800/70 px-3 py-2 text-slate-200 transition-colors hover:bg-slate-700"
+                    onClick={closeMenu}
+                  >
+                    Certificates
                   </a>
                 </nav>
               </div>

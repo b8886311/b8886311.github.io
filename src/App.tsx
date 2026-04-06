@@ -3,6 +3,9 @@ import Header from "./components/Header";
 import PortfolioHero from "./components/PortfolioHero";
 import About from "./components/About";
 import PortfolioGallery from "./components/PortfolioGallery";
+import FrontendGallery from "./components/FrontendGallery";
+import CertificateGallery from "./components/CertificateGallery";
+import SkillTreeGallery from "./components/SkillTreeGallery";
 
 function App() {
   return (
@@ -11,7 +14,10 @@ function App() {
       <main className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
         <PortfolioHero />
         <About />
+        <SkillTreeGallery />
         <PortfolioGallery />
+        <FrontendGallery />
+        <CertificateGallery />
       </main>
     </div>
   );
