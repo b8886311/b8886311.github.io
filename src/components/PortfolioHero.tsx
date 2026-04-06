@@ -1,4 +1,3 @@
-import avatar from "../assets/avatar.jpg";
 import background from "../assets/pexels-catiamatos-1072179.jpg";
 
 function PortfolioHero() {
@@ -54,7 +53,7 @@ function PortfolioHero() {
               <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-emerald-500/20 to-emerald-400/10 blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative rounded-full border-2 border-emerald-400/50 bg-slate-900/60 p-2 backdrop-blur">
                 <img
-                  src={avatar}
+                  src="/avatar.jpg"
                   alt="avatar"
                   className="h-40 w-40 rounded-full object-cover object-[center_5%] ring-2 ring-emerald-500/30 sm:h-48 sm:w-48"
                 />
