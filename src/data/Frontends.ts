@@ -35,7 +35,7 @@ const portfolioFrontends: PortfolioFrontend[] = [
   },
   {
     id: 2,
-    caption: "旅遊網站版型",
+    caption: "旅遊網站",
     images: [
       {
         original: "/frontend/f_project2-1.png",
