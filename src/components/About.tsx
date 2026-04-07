@@ -27,8 +27,8 @@ function About() {
               Architect 」「Professional Scrum Master I」等證照。
             </p>
             <p className="indent-8 mb-4">
-              目前任職於緯創軟體股份有限公司，並擔任資深軟體開發工程師
-              與聯華電子 IT 部門合作，擔任PG（Programming）並兼任SD（System
+              在現職中，我與聯華電子 IT
+              部門合作，擔任PG（Programming）並兼任SD（System
               Designer）角色，致力於開發更穩定且具擴充性的系統架構。
               參與並獨立開發多個專案，涵蓋 企業內部系統開發、資料庫管理、CICD
               Pipeline規劃 等多個領域。
