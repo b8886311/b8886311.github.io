@@ -37,7 +37,7 @@ function PortfolioHero() {
               <h1 className="mt-4 text-5xl font-black leading-tight sm:text-6xl md:text-7xl">
                 <span className="block text-white">I&apos;M</span>
                 <span className="block bg-gradient-to-r from-emerald-300 to-emerald-400 bg-clip-text text-transparent">
-                  Chen Yusen
+                  Yusen Chen
                 </span>
               </h1>
             </div>
