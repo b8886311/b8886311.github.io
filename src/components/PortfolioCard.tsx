@@ -22,13 +22,31 @@ function PortfolioCard({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
 
   function toggleMore() {
     setIsOpen((prev) => !prev);
   }
 
   function handleTouchStart(e: React.TouchEvent) {
+    if (e.touches.length !== 1) return;
     touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  }
+
+  function handleTouchMove(e: React.TouchEvent) {
+    if (e.touches.length !== 1) return;
+    if (touchStartX.current === null || touchStartY.current === null) return;
+
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    const diffX = Math.abs(touchStartX.current - currentX);
+    const diffY = Math.abs(touchStartY.current - currentY);
+
+    // Keep native pinch-zoom, but stop horizontal page panning on single-finger swipe.
+    if (diffX > diffY) {
+      e.preventDefault();
+    }
   }
 
   function handleTouchEnd(e: React.TouchEvent) {
@@ -53,6 +71,7 @@ function PortfolioCard({
     }
 
     touchStartX.current = null;
+    touchStartY.current = null;
   }
 
   const selectedImage = item.images[selectedIndex] ?? item.images[0];
@@ -101,9 +120,11 @@ function PortfolioCard({
           {selectedImage ? (
             <figure className="space-y-3">
               <div
-                className="group relative overflow-hidden rounded-xl border border-emerald-400/15 bg-slate-950"
+                className="group relative overflow-hidden rounded-xl border border-emerald-400/15 bg-slate-950 overscroll-x-contain"
                 onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
+                style={{ touchAction: "pan-y pinch-zoom" }}
               >
                 <img
                   src={selectedImage.original}
